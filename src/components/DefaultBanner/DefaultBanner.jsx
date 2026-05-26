@@ -2,7 +2,7 @@ import { CCarousel, CCarouselCaption, CCarouselItem, CImage } from "@coreui/reac
 
 const DefaultBanner = ({ items }) => {
     return (
-        <CCarousel controls indicators interval={3000} transition="crossfade">
+        <CCarousel controls indicators interval={3000} transition="crossfade" className="w-100">
             {items.map((item, index) => (
                 <CCarouselItem key={index}>
                     <CImage

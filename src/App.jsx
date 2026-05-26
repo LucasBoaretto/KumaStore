@@ -5,13 +5,15 @@ import DefaultFooter from "./pages/DefaultFooter/DefaultFooter";
 
 function App() {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-x-hidden min-vh-100 d-flex flex-column justify-content-between">
       <DefaultHeader />
-      <Routes>
-        {DefaultRoutes.map((rota, index) => (
-          <Route path={rota.path} element={rota.element} />
-        ))}
-      </Routes>
+      <main className="d-flex flex-column flex-grow-1">
+        <Routes>
+          {DefaultRoutes.map((rota, index) => (
+            <Route path={rota.path} element={rota.element} />
+          ))}
+        </Routes>
+      </main>
       <DefaultFooter />
     </div>
   )

@@ -46,8 +46,12 @@ const DefaultHeader = () => {
                 </CCol>
                 <CCol md={4} className='d-flex justify-content-end align-items-center'>
                     <div className='me-2'>
-                        <FontAwesomeIcon icon={faCartShopping} size='xl' className='me-3' style={{ cursor: 'pointer' }} />
-                        <FontAwesomeIcon icon={faUser} size='xl' className='me-3' style={{ cursor: 'pointer' }} />
+                        <Link to='/cart'>
+                            <FontAwesomeIcon icon={faCartShopping} size='xl' className='me-3' style={{ cursor: 'pointer' }} color='#5a6e00' />
+                        </Link>
+                        <Link to='/login'>
+                            <FontAwesomeIcon icon={faUser} size='xl' className='me-3' style={{ cursor: 'pointer' }} color='#4b4b4bcc'/>
+                        </Link>
                     </div>
                 </CCol>
             </CRow>

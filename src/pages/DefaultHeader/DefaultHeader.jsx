@@ -26,10 +26,10 @@ import { TiltButton } from 'react-tilt-button'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
-import logo from "../../../public/img/urso-teddy.png"
 
 const DefaultHeader = () => {
     const [visible, setVisible] = useState(false)
+    const logo = '/img/homepage/urso-teddy.png'
     return (
         <CNavbar expand="lg" color='light' className='border-bottom py-3'>
             <CRow className='w-100 ms-2'>

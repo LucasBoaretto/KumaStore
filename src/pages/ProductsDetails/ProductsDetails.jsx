@@ -3,16 +3,20 @@ import { useParams } from "react-router";
 import { homePageData } from "../../data/homePageData";
 import { CCol, CContainer, CFormInput, CFormLabel, CImage, CRow, CSpinner } from "@coreui/react";
 import { TiltButton } from "react-tilt-button";
+import MiniCardDetails from "./components/MiniCardDetails";
+import axios from "axios";
 
 const ProductsDetails = () => {
     const { cod } = useParams();
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
+    const [address, setAddress] = useState({});
+    const [loadingAddress, setLoadingAddress] = useState(false);
 
     const fetchProduct = async () => {
         setLoading(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 100));
             const foundProduct = homePageData.find(item => item.cod_product === Number(cod));
             if (foundProduct) {
                 setProduct(foundProduct);
@@ -26,8 +30,24 @@ const ProductsDetails = () => {
         }
     }
 
+    const fetchAddress = async (cep) => {
+        setLoadingAddress(true);
+        try {
+            const response = await axios.get(`viacep.com.br/ws/${cep}/json/`);
+            if (response) {
+                setAddress(response.data.data);
+            }
+        } catch (error) {
+            console.warn(`Erro ao buscar CEP ${error}`);
+        } finally {
+            setLoadingAddress(false);
+            console.log(address)
+        }
+    }
+
     useEffect(() => {
         fetchProduct();
+        fetchAddress();
     }, [cod]);
 
     if (loading) {
@@ -37,6 +57,10 @@ const ProductsDetails = () => {
                 Carregando dados do produto...
             </div>
         )
+    }
+
+    const formattValue = (value) => {
+        return value.replace('.', ',');
     }
 
     return (
@@ -49,6 +73,15 @@ const ProductsDetails = () => {
                         width={400}
                         className="object-fit-contain"
                     />
+                    <div className="mt-3 px-4 d-flex flex-row">
+                        {product.detailed_pictures.map((product, index) => (
+                            <MiniCardDetails
+                                key={index}
+                                img={product.picture}
+                                altText={"texto"}
+                            />
+                        ))}
+                    </div>
                 </CCol>
                 <CCol>
                     <p className="mb-5 fs-1">{product.product_name}</p>
@@ -60,16 +93,23 @@ const ProductsDetails = () => {
                         id="quantity"
                         className="mb-3"
                     />
-                    <TiltButton
-                        elevation={7}
-                        tilt={0.8}
-                        variant="carbon"
-                    >Adicionar ao carrinho
-                    </TiltButton>
+                    <div className="d-flex justify-content-center">
+                        <TiltButton
+                            elevation={4}
+                            tilt={0.1}
+                            variant="steel"
+                            width='50%'
+                            height={50}
+                            sideColor='#5F615F'
+                            surfaceColor="#D2D6D3"
+                            borderColor="#5F615F"
+                        >Adicionar ao carrinho
+                        </TiltButton>
+                    </div>
                 </CCol>
             </CRow>
             <CRow className="mb-4">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat delectus amet blanditiis unde repellendus, sint saepe ipsum iste. Dolor iure tempora ex quibusdam incidunt quisquam itaque obcaecati pariatur sint quos.
+                {product.description}
             </CRow>
             <CRow className="mb-4">
                 <CCol md={4}>

@@ -2,7 +2,7 @@ import { CCarousel, CCarouselCaption, CCarouselItem, CImage } from "@coreui/reac
 
 const DefaultBanner = ({ items }) => {
     return (
-        <CCarousel controls indicators interval={3000} transition="crossfade" className="w-100">
+        <CCarousel controls indicators interval={15000} transition="crossfade" className="w-100">
             {items.map((item, index) => (
                 <CCarouselItem key={index}>
                     <CImage
@@ -10,13 +10,15 @@ const DefaultBanner = ({ items }) => {
                         src={item.picture}
                         alt={`slide ${index}`}
                         style={{
-                            height: '400px',
-                            objectFit: 'cover'
+                            height: '250px',
+                            objectFit: 'fill'
                         }}
                     />
-                    <CCarouselCaption className="d-none d-md-block">
-                        <h5>{item.product_name}</h5>
-                    </CCarouselCaption>
+                    {item.title && (
+                        <CCarouselCaption className="d-none d-md-block">
+                            <h5>{item.title}</h5>
+                        </CCarouselCaption>
+                    )}
                 </CCarouselItem>
             ))}
         </CCarousel>

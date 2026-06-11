@@ -3,10 +3,10 @@ import './DefaultCard.css'
 
 const DefaultCard = ({ img, title, price }) => {
     return (
-        <CCard style={{ width: '18rem' }} className="default-card">
+        <CCard style={{ width: '16rem' }} className="default-card">
             <CCardImage orientation="top" src={img} style={{
                 height: '200px',
-                objectFit: 'cover'
+                objectFit: 'fill'
             }} />
             <CCardBody className="text-center">
                 <CCardTitle>{title}</CCardTitle>

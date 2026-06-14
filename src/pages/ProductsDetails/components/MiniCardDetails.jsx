@@ -1,16 +1,36 @@
-import { CImage } from "@coreui/react"
+import { CImage } from "@coreui/react";
 
-const MiniCardDetails = ({ img, altText }) => {
+const MiniCardDetails = ({
+    img,
+    altText,
+    onSelect,
+    selected
+}) => {
     return (
-        <div className="mx-1 border p-1" style={{ cursor: 'pointer' }}>
+        <div
+            onClick={() => onSelect(img)}
+            className="me-2 mb-2"
+            style={{
+                cursor: "pointer",
+                border: selected
+                    ? "2px solid #5a6e00"
+                    : "1px solid #ddd",
+                borderRadius: "8px",
+                padding: "4px",
+                transition: ".2s"
+            }}
+        >
             <CImage
                 src={img}
                 alt={altText}
-                width={100}
-                height={100}
+                width={90}
+                height={90}
+                style={{
+                    objectFit: "cover"
+                }}
             />
         </div>
-    )
-}
+    );
+};
 
-export default MiniCardDetails
+export default MiniCardDetails;

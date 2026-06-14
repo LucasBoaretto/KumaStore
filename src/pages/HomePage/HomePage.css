@@ -1,0 +1,90 @@
+.home-page {
+    background: #f8f9fa;
+    min-height: 100vh;
+}
+
+.hero-action {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: .75rem;
+}
+
+.hero-subtitle {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+.benefit-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    height: 100%;
+
+    transition: .3s;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, .06);
+}
+
+.benefit-card:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 12px 24px rgba(0, 0, 0, .12);
+}
+
+.benefit-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.benefit-card h5 {
+    font-weight: 700;
+}
+
+.benefit-card p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.section-badge {
+    background: #fff3cd;
+
+    color: #856404;
+
+    padding: 8px 16px;
+
+    border-radius: 999px;
+
+    font-weight: 600;
+
+    font-size: .85rem;
+}
+
+.section-title {
+    margin-top: 1rem;
+
+    font-size: 2.2rem;
+
+    font-weight: 700;
+}
+
+.section-subtitle {
+    color: #6c757d;
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}

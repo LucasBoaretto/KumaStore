@@ -1,135 +1,318 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { homePageData } from "../../data/homePageData";
-import { CCol, CContainer, CFormInput, CFormLabel, CImage, CRow, CSpinner } from "@coreui/react";
+import {
+    CCol,
+    CContainer,
+    CFormInput,
+    CFormLabel,
+    CImage,
+    CRow,
+    CSpinner
+} from "@coreui/react";
 import { TiltButton } from "react-tilt-button";
 import MiniCardDetails from "./components/MiniCardDetails";
 import axios from "axios";
 
+import "./ProductsDetails.css";
+
 const ProductsDetails = () => {
     const { cod } = useParams();
+
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
-    const [address, setAddress] = useState({});
+
+    const [selectedImage, setSelectedImage] = useState("");
+
+    const [cep, setCep] = useState("");
+    const [shippingInfo, setShippingInfo] = useState(null);
     const [loadingAddress, setLoadingAddress] = useState(false);
+
+    const [quantity, setQuantity] = useState(1);
 
     const fetchProduct = async () => {
         setLoading(true);
+
         try {
             await new Promise(resolve => setTimeout(resolve, 100));
-            const foundProduct = homePageData.find(item => item.cod_product === Number(cod));
+
+            const foundProduct = homePageData.find(
+                item => item.cod_product === Number(cod)
+            );
+
             if (foundProduct) {
                 setProduct(foundProduct);
+                setSelectedImage(foundProduct.picture);
             } else {
                 alert("Produto não encontrado");
             }
-        } catch (error) {
-            alert("Erro ao obter produto");
-        } finally {
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
             setLoading(false);
         }
-    }
+    };
 
-    const fetchAddress = async (cep) => {
-        setLoadingAddress(true);
-        try {
-            const response = await axios.get(`viacep.com.br/ws/${cep}/json/`);
-            if (response) {
-                setAddress(response.data.data);
-            }
-        } catch (error) {
-            console.warn(`Erro ao buscar CEP ${error}`);
-        } finally {
-            setLoadingAddress(false);
-            console.log(address)
+    const calculateShipping = async () => {
+        if (!cep || cep.length < 8) {
+            alert("Informe um CEP válido");
+            return;
         }
-    }
+
+        setLoadingAddress(true);
+
+        try {
+            const response = await axios.get(
+                `https://viacep.com.br/ws/${cep}/json/`
+            );
+
+            if (response.data.erro) {
+                alert("CEP não encontrado");
+                return;
+            }
+
+            const shippingValue =
+                Math.floor(Math.random() * 25) + 10;
+
+            const shippingDays =
+                Math.floor(Math.random() * 7) + 2;
+
+            setShippingInfo({
+                city: response.data.localidade,
+                state: response.data.uf,
+                price: shippingValue,
+                days: shippingDays
+            });
+        }
+        catch (error) {
+            console.error(error);
+            alert("Erro ao consultar CEP");
+        }
+        finally {
+            setLoadingAddress(false);
+        }
+    };
 
     useEffect(() => {
         fetchProduct();
-        fetchAddress();
     }, [cod]);
 
     if (loading) {
         return (
             <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
                 <CSpinner />
-                Carregando dados do produto...
+                <span className="mt-2">
+                    Carregando dados do produto...
+                </span>
             </div>
-        )
+        );
     }
 
-    const formattValue = (value) => {
-        return value.replace('.', ',');
-    }
+    const originalPrice =
+        (Number(product.price) * 1.25).toFixed(2);
+
+    const reviews =
+        Math.floor(Math.random() * 300) + 50;
+
+    const stock =
+        Math.floor(Math.random() * 30) + 10;
 
     return (
-        <CContainer className="p-4">
-            <CRow className="mb-4">
-                <CCol>
-                    <CImage
-                        src={product.picture}
-                        height={600}
-                        width={400}
-                        className="object-fit-contain"
-                    />
-                    <div className="mt-3 px-4 d-flex flex-row">
-                        {product.detailed_pictures.map((product, index) => (
-                            <MiniCardDetails
-                                key={index}
-                                img={product.picture}
-                                altText={"texto"}
+        <CContainer className="py-5">
+            <CRow className="g-5">
+                <CCol lg={5}>
+                    <div className="bg-white rounded shadow-sm p-3">
+                        <div className="product-image-wrapper">
+                            <CImage
+                                src={selectedImage}
+                                className="product-image w-100"
+                                style={{
+                                    height: "600px",
+                                    objectFit: "contain"
+                                }}
                             />
-                        ))}
-                    </div>
-                </CCol>
-                <CCol>
-                    <p className="mb-5 fs-1">{product.product_name}</p>
-                    <p className="fs-5">R$ {product.price}</p>
-                    <CFormLabel htmlFor="quantity">Quantidade</CFormLabel>
-                    <CFormInput
-                        type="number"
-                        name="quantity"
-                        id="quantity"
-                        className="mb-3"
-                    />
-                    <div className="d-flex justify-content-center">
-                        <TiltButton
-                            elevation={4}
-                            tilt={0.1}
-                            variant="steel"
-                            width='50%'
-                            height={50}
-                            sideColor='#5F615F'
-                            surfaceColor="#D2D6D3"
-                            borderColor="#5F615F"
-                        >Adicionar ao carrinho
-                        </TiltButton>
-                    </div>
-                </CCol>
-            </CRow>
-            <CRow className="mb-4">
-                {product.description}
-            </CRow>
-            <CRow className="mb-4">
-                <CCol md={4}>
-                    <CFormLabel>Calcular Frete</CFormLabel>
-                    <CFormInput type="text" placeholder="Informe o CEP" />
-                </CCol>
-                <CCol className="d-flex align-items-end">
-                    <TiltButton
-                        elevation={3}
-                        tilt={0.8}
-                        height={40}
-                        width={140}
-                        variant="steel"
-                    >
-                        Calcular
-                    </TiltButton>
-                </CCol>
-            </CRow>
-        </CContainer>
-    )
-}
+                        </div>
 
-export default ProductsDetails
+                        <div className="mt-3 d-flex flex-wrap">
+                            {product.detailed_pictures?.map(
+                                (image, index) => (
+                                    <MiniCardDetails
+                                        key={index}
+                                        img={image.picture}
+                                        altText={product.product_name}
+                                        onSelect={setSelectedImage}
+                                        selected={
+                                            selectedImage === image.picture
+                                        }
+                                    />
+                                )
+                            )}
+                        </div>
+                    </div>
+                </CCol>
+
+                <CCol lg={7}>
+                    <h1 className="mb-2 fw-bold">
+                        {product.product_name}
+                    </h1>
+
+                    <div className="d-flex align-items-center gap-2 mb-3">
+                        <span className="stars">
+                            ★★★★★
+                        </span>
+
+                        <span className="text-muted">
+                            ({reviews} avaliações)
+                        </span>
+                    </div>
+
+                    <p className="old-price">
+                        R$ {originalPrice}
+                    </p>
+
+                    <div className="d-flex align-items-center gap-3 mb-2">
+                        <h2 className="current-price">
+                            R$ {product.price}
+                        </h2>
+
+                        <span className="badge bg-success">
+                            20% OFF
+                        </span>
+                    </div>
+
+                    <p className="installments">
+                        ou 12x de R$
+                        {(Number(product.price) / 12).toFixed(2)}
+                    </p>
+
+                    <p className="stock-info">
+                        ✅ {stock} unidades disponíveis
+                    </p>
+
+                    <div className="mb-4">
+                        <CFormLabel>
+                            Quantidade
+                        </CFormLabel>
+
+                        <div className="quantity-selector">
+                            <button
+                                type="button"
+                                className="quantity-btn"
+                                onClick={() =>
+                                    setQuantity(prev =>
+                                        Math.max(1, prev - 1)
+                                    )
+                                }
+                            >
+                                -
+                            </button>
+
+                            <span className="quantity-value">
+                                {quantity}
+                            </span>
+
+                            <button
+                                type="button"
+                                className="quantity-btn"
+                                onClick={() =>
+                                    setQuantity(prev => prev + 1)
+                                }
+                            >
+                                +
+                            </button>
+                        </div>
+                    </div>
+
+                    <TiltButton
+                        elevation={4}
+                        tilt={0.1}
+                        variant="steel"
+                        width="320px"
+                        height={55}
+                        sideColor="#5F615F"
+                        surfaceColor="#D2D6D3"
+                        borderColor="#5F615F"
+                    >
+                        Adicionar ao carrinho
+                    </TiltButton>
+
+                    <div className="purchase-benefits">
+                        <p>🚚 Frete rápido para todo Brasil</p>
+                        <p>🔒 Compra segura</p>
+                        <p>💳 Até 12x sem juros</p>
+                    </div>
+
+                    <div className="mt-5">
+                        <h4>Calcular Frete</h4>
+
+                        <div className="d-flex gap-2 align-items-end">
+                            <div style={{ width: "250px" }}>
+                                <CFormInput
+                                    placeholder="Informe o CEP"
+                                    value={cep}
+                                    onChange={(e) =>
+                                        setCep(e.target.value)
+                                    }
+                                />
+                            </div>
+
+                            <TiltButton
+                                elevation={3}
+                                tilt={0.8}
+                                height={40}
+                                width={140}
+                                variant="steel"
+                                onClick={calculateShipping}
+                            >
+                                Calcular
+                            </TiltButton>
+                        </div>
+
+                        {loadingAddress && (
+                            <div className="mt-3">
+                                <CSpinner size="sm" />
+                            </div>
+                        )}
+
+                        {shippingInfo && (
+                            <div className="shipping-card mt-3">
+                                <p>
+                                    📍 {shippingInfo.city} - {shippingInfo.state}
+                                </p>
+
+                                <p>
+                                    🚚 Frete:
+                                    <strong>
+                                        {" "}R$ {shippingInfo.price}
+                                    </strong>
+                                </p>
+
+                                <p>
+                                    ⏱️ Prazo:
+                                    <strong>
+                                        {" "}
+                                        {shippingInfo.days} dias úteis
+                                    </strong>
+                                </p>
+                            </div>
+                        )}
+                    </div>
+                </CCol>
+            </CRow>
+
+            <div className="bg-white rounded shadow-sm p-4 mt-5">
+                <h3 className="mb-3">
+                    Descrição do Produto
+                </h3>
+
+                <p className="mb-0">
+                    {product.description}
+                </p>
+            </div>
+        </CContainer>
+    );
+};
+
+export default ProductsDetails;

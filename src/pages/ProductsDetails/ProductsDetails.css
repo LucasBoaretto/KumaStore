@@ -1,0 +1,80 @@
+.product-image-wrapper {
+    overflow: hidden;
+}
+
+.product-image {
+    transition: transform .4s ease;
+}
+
+.stars {
+    color: #ffc107;
+    font-size: 1.2rem;
+}
+
+.old-price {
+    color: #999;
+    text-decoration: line-through;
+    margin-bottom: .25rem;
+}
+
+.current-price {
+    color: #5a6e00;
+    font-weight: 700;
+}
+
+.installments {
+    color: #6c757d;
+}
+
+.stock-info {
+    color: #198754;
+    font-weight: 600;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.quantity-btn {
+    border: none;
+    background: #f8f9fa;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.quantity-btn:hover {
+    background: #ececec;
+}
+
+.quantity-value {
+    width: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.purchase-benefits {
+    margin-top: 10px;
+    display: flex;
+}
+
+.purchase-benefits p {
+    padding-right: 12px;
+}
+
+.shipping-card {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+}
+
+.shipping-card p {
+    margin-bottom: .5rem;
+}

@@ -1,11 +1,3 @@
-const urso1 = '/img/homepage/urso 1.jpeg'
-const urso2 = '/img/homepage/urso 2.jpeg'
-const urso3 = '/img/homepage/urso 3.jpeg'
-const urso4 = '/img/homepage/urso 4.jpeg'
-const urso5 = '/img/homepage/urso 5.jpeg'
-const urso6 = '/img/homepage/urso 6.jpeg'
-const urso7 = '/img/homepage/urso 7.jpg'
-const urso8 = '/img/homepage/urso 8.jpeg'
 const funnybear = {
     funnyBear1: '/img/homepage/funnyBear1.png',
     funnyBear2: '/img/homepage/funnyBear2.png',
@@ -19,11 +11,46 @@ const spyderbear = {
     spyderBear4: '/img/homepage/spyderBear4.png',
 }
 
-const sahurBear = {
-    sahurBear1: '/img/homepage/sahurBear1.png',
-    sahurBear2: '/img/homepage/sahurBear2.png',
-    sahurBear3: '/img/homepage/sahurBear3.png',
-    sahurBear4: '/img/homepage/sahurBear4.png',
+const capivara = {
+    capivara1: '/img/homepage/capivara1.png',
+    capivara2: '/img/homepage/capivara2.png',
+    capivara3: '/img/homepage/capivara3.png',
+    capivara4: '/img/homepage/capivara4.png',
+}
+
+const cachorrinho = {
+    cachorrinho1: '/img/homepage/cachorrinho1.png',
+    cachorrinho2: '/img/homepage/cachorrinho2.png',
+    cachorrinho3: '/img/homepage/cachorrinho3.png',
+    cachorrinho4: '/img/homepage/cachorrinho4.png',
+}
+
+const gatinho = {
+    gatinho1: '/img/homepage/gatinho1.png',
+    gatinho2: '/img/homepage/gatinho2.png',
+    gatinho3: '/img/homepage/gatinho3.png',
+    gatinho4: '/img/homepage/gatinho4.png',
+}
+
+const ursinhoAmoroso = {
+    ursinhoAmoroso1: '/img/homepage/ursinhoAmoroso1.png',
+    ursinhoAmoroso2: '/img/homepage/ursinhoAmoroso2.png',
+    ursinhoAmoroso3: '/img/homepage/ursinhoAmoroso3.png',
+    ursinhoAmoroso4: '/img/homepage/ursinhoAmoroso4.png',
+}
+
+const hellokitty = {
+    hellokitty1: '/img/homepage/hellokitty1.png',
+    hellokitty2: '/img/homepage/hellokitty2.png',
+    hellokitty3: '/img/homepage/hellokitty3.png',
+    hellokitty4: '/img/homepage/hellokitty4.png',
+}
+
+const stitch = {
+    stitch1: '/img/homepage/stitch1.png',
+    stitch2: '/img/homepage/stitch2.png',
+    stitch3: '/img/homepage/stitch3.png',
+    stitch4: '/img/homepage/stitch4.png',
 }
 
 export const homePageData = [
@@ -33,6 +60,10 @@ export const homePageData = [
         price: 143.56,
         picture: funnybear.funnyBear1,
         detailed_pictures: [
+            {
+                picture: funnybear.funnyBear1,
+                alt: "Hello Kitty Bombada"
+            },
             {
                 picture: funnybear.funnyBear2,
                 alt: "Hello Kitty Bombada"
@@ -54,6 +85,10 @@ export const homePageData = [
         picture: spyderbear.spyderBear1,
         detailed_pictures: [
             {
+                picture: spyderbear.spyderBear1,
+                alt: "Homem Aranha"
+            },
+            {
                 picture: spyderbear.spyderBear2,
                 alt: "Homem Aranha"
             },
@@ -69,122 +104,146 @@ export const homePageData = [
     },
     {
         cod_product: 3,
-        product_name: "Tum Tum Sahur",
+        product_name: "Ursinho Capivara",
         price: 143.56,
-        picture: sahurBear.sahurBear1,
-        description: "Sabe aquele ursinho que não é apenas um brinquedo, mas o companheiro perfeito para todas as aventuras? O Ursinho do Tum Tum Sahur chegou à Kuma Store para espalhar fofura, carinho e momentos inesquecíveis! Inspirado no carisma e na energia única do Sahur, este urso de pelúcia foi desenhado para quem busca um toque de exclusividade e muito aconchego. Seja para colecionar, decorar o quarto com estilo ou presentear alguém especial, ele é a escolha ideal.",
+        picture: capivara.capivara1,
+        description: "",
         detailed_pictures: [
             {
-                picture: sahurBear.sahurBear2,
-                alt: "Tum Tum Sahur"
+                picture: capivara.capivara1,
+                alt: "Ursinho Capivara"
             },
             {
-                picture: sahurBear.sahurBear3,
-                alt: "Tum Tum Sahur"
+                picture: capivara.capivara2,
+                alt: "Ursinho Capivara"
             },
             {
-                picture: sahurBear.sahurBear4,
-                alt: "Tum Tum Sahur"
+                picture: capivara.capivara3,
+                alt: "Ursinho Capivara"
+            },
+            {
+                picture: capivara.capivara4,
+                alt: "Ursinho Capivara"
             },
         ]
     },
     {
         cod_product: 4,
-        product_name: "Urso 4",
+        product_name: "Ursinho salsicha",
         price: 123.45,
-        picture: urso4,
+        picture: cachorrinho.cachorrinho1,
         detailed_pictures: [
             {
-                picture: urso4,
-                alt: "Urso 4"
+                picture: cachorrinho.cachorrinho1,
+                alt: "Ursinho salsicha"
             },
             {
-                picture: urso4,
-                alt: "Urso 4"
+                picture: cachorrinho.cachorrinho2,
+                alt: "Ursinho salsicha"
             },
             {
-                picture: urso4,
-                alt: "Urso 4"
+                picture: cachorrinho.cachorrinho3,
+                alt: "Ursinho salsicha"
+            },
+            {
+                picture: cachorrinho.cachorrinho4,
+                alt: "Ursinho salsicha"
             },
         ]
     },
     {
         cod_product: 5,
-        product_name: "Urso 5",
+        product_name: "Ursinho gatinho",
         price: 143.56,
-        picture: urso5,
+        picture: gatinho.gatinho1,
         detailed_pictures: [
             {
-                picture: urso5,
-                alt: "Urso 5"
+                picture: gatinho.gatinho1,
+                alt: "Ursinho gatinho"
             },
             {
-                picture: urso5,
-                alt: "Urso 5"
+                picture: gatinho.gatinho2,
+                alt: "Ursinho gatinho"
             },
             {
-                picture: urso5,
-                alt: "Urso 5"
+                picture: gatinho.gatinho3,
+                alt: "Ursinho gatinho"
+            },
+            {
+                picture: gatinho.gatinho4,
+                alt: "Ursinho gatinho"
             },
         ]
     },
     {
         cod_product: 6,
-        product_name: "Urso 6",
+        product_name: "Ursinho Amoroso",
         price: 123.45,
-        picture: urso6,
+        picture: ursinhoAmoroso.ursinhoAmoroso1,
         detailed_pictures: [
             {
-                picture: urso6,
-                alt: "Urso 6"
+                picture: ursinhoAmoroso.ursinhoAmoroso1,
+                alt: "Ursinho Amoroso"
             },
             {
-                picture: urso6,
-                alt: "Urso 6"
+                picture: ursinhoAmoroso.ursinhoAmoroso2,
+                alt: "Ursinho Amoroso"
             },
             {
-                picture: urso6,
-                alt: "Urso 6"
+                picture: ursinhoAmoroso.ursinhoAmoroso3,
+                alt: "Ursinho Amoroso"
+            },
+            {
+                picture: ursinhoAmoroso.ursinhoAmoroso4,
+                alt: "Ursinho Amoroso"
             },
         ]
     },
     {
         cod_product: 7,
-        product_name: "Urso 7",
+        product_name: "Hello Kitty",
         price: 143.56,
-        picture: urso7,
+        picture: hellokitty.hellokitty1,
         detailed_pictures: [
             {
-                picture: urso7,
-                alt: "Urso 7"
+                picture: hellokitty.hellokitty1,
+                alt: "Hello Kitty"
             },
             {
-                picture: urso7,
-                alt: "Urso 7"
+                picture: hellokitty.hellokitty2,
+                alt: "Hello Kitty"
             },
             {
-                picture: urso7,
-                alt: "Urso 7"
+                picture: hellokitty.hellokitty3,
+                alt: "Hello Kitty"
+            },
+            {
+                picture: hellokitty.hellokitty4,
+                alt: "Hello Kitty"
             },
         ]
     },
     {
         cod_product: 8,
-        product_name: "Urso 8",
+        product_name: "Ursinho Stitch",
         price: 123.45,
-        picture: urso8,
+        picture: stitch.stitch1,
         detailed_pictures: [
             {
-                picture: urso8,
-                alt: "Urso 8"
+                picture: stitch.stitch1,
+                alt: "Ursinho Stitch"
             },
             {
-                picture: urso8,
-                alt: "Urso 8"
+                picture: stitch.stitch2,
+                alt: "Ursinho Stitch"
             },
             {
-                picture: urso8,
-                alt: "Urso 8"
+                picture: stitch.stitch3,
+                alt: "Ursinho Stitch"
+            },
+            {
+                picture: stitch.stitch4,
+                alt: "Ursinho Stitch"
             },
         ]
     }

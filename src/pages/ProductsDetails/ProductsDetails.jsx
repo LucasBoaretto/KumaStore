@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { homePageData } from "../../data/homePageData";
 import {
@@ -13,33 +13,25 @@ import {
 import { TiltButton } from "react-tilt-button";
 import MiniCardDetails from "./components/MiniCardDetails";
 import axios from "axios";
-
 import "./ProductsDetails.css";
 
 const ProductsDetails = () => {
     const { cod } = useParams();
-
     const [product, setProduct] = useState({});
     const [loading, setLoading] = useState(true);
-
     const [selectedImage, setSelectedImage] = useState("");
-
     const [cep, setCep] = useState("");
     const [shippingInfo, setShippingInfo] = useState(null);
     const [loadingAddress, setLoadingAddress] = useState(false);
-
     const [quantity, setQuantity] = useState(1);
 
     const fetchProduct = async () => {
         setLoading(true);
-
         try {
-            await new Promise(resolve => setTimeout(resolve, 100));
-
+            await new Promise(resolve => setTimeout(resolve, 1000));
             const foundProduct = homePageData.find(
                 item => item.cod_product === Number(cod)
             );
-
             if (foundProduct) {
                 setProduct(foundProduct);
                 setSelectedImage(foundProduct.picture);
@@ -60,25 +52,20 @@ const ProductsDetails = () => {
             alert("Informe um CEP válido");
             return;
         }
-
         setLoadingAddress(true);
-
         try {
             const response = await axios.get(
                 `https://viacep.com.br/ws/${cep}/json/`
             );
-
             if (response.data.erro) {
                 alert("CEP não encontrado");
                 return;
             }
-
             const shippingValue =
                 Math.floor(Math.random() * 25) + 10;
 
             const shippingDays =
                 Math.floor(Math.random() * 7) + 2;
-
             setShippingInfo({
                 city: response.data.localidade,
                 state: response.data.uf,
@@ -99,6 +86,18 @@ const ProductsDetails = () => {
         fetchProduct();
     }, [cod]);
 
+    const originalPrice = useMemo(() => {
+        return (Number(product?.price || 0) * 1.25).toFixed(2);
+    }, [product.price]);
+
+    const reviews = useMemo(() => {
+        return Math.floor(Math.random() * 300) + 50;
+    }, []);
+
+    const stock = useMemo(() => {
+        return Math.floor(Math.random() * 30) + 10;
+    }, []);
+
     if (loading) {
         return (
             <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
@@ -110,17 +109,8 @@ const ProductsDetails = () => {
         );
     }
 
-    const originalPrice =
-        (Number(product.price) * 1.25).toFixed(2);
-
-    const reviews =
-        Math.floor(Math.random() * 300) + 50;
-
-    const stock =
-        Math.floor(Math.random() * 30) + 10;
-
     return (
-        <CContainer className="py-5">
+        <CContainer className="py-5" style={{backgroundColor: '#f8f9fa'}}>
             <CRow className="g-5">
                 <CCol lg={5}>
                     <div className="bg-white rounded shadow-sm p-3">
@@ -135,7 +125,7 @@ const ProductsDetails = () => {
                             />
                         </div>
 
-                        <div className="mt-3 d-flex flex-wrap">
+                        <div className="mt-3 d-flex flex-wrap justify-content-center">
                             {product.detailed_pictures?.map(
                                 (image, index) => (
                                     <MiniCardDetails
@@ -187,10 +177,6 @@ const ProductsDetails = () => {
                         {(Number(product.price) / 12).toFixed(2)}
                     </p>
 
-                    <p className="stock-info">
-                        ✅ {stock} unidades disponíveis
-                    </p>
-
                     <div className="mb-4">
                         <CFormLabel>
                             Quantidade
@@ -219,10 +205,14 @@ const ProductsDetails = () => {
                                 onClick={() =>
                                     setQuantity(prev => prev + 1)
                                 }
+                                disabled={quantity >= stock}
                             >
                                 +
                             </button>
                         </div>
+                        <p>
+                            {stock} unidades disponíveis
+                        </p>
                     </div>
 
                     <TiltButton

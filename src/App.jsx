@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="overflow-x-hidden min-vh-100 d-flex flex-column justify-content-between">
       <DefaultHeader />
-      <main className="d-flex flex-column flex-grow-1">
+      <main className="d-flex flex-column flex-grow-1" style={{ backgroundColor: '#f8f9fa' }}>
         <Routes>
           {DefaultRoutes.map((rota, index) => (
             <Route path={rota.path} element={rota.element} />

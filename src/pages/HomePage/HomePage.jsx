@@ -34,74 +34,13 @@ const HomePage = () => {
         <div className="home-page">
             <CContainer className="py-4">
                 <DefaultBanner items={bannerData} />
-
-                <div className="hero-action">
-                    <h1 className="hero-title">
-                        A maior coleção de pelúcias para todas as idades
-                    </h1>
-
-                    <p className="hero-subtitle">
-                        Produtos selecionados com qualidade e entrega rápida.
-                    </p>
-
-                    <TiltButton
-                        elevation={4}
-                        tilt={0.5}
-                        variant="gold"
-                        height={50}
-                        onClick={scrollToHighlights}
-                    >
-                        Ver Destaques
-                    </TiltButton>
-                </div>
-            </CContainer>
-
-            <CContainer className="my-5">
-                <CRow className="g-4">
-                    <CCol md={3}>
-                        <div className="benefit-card">
-                            <div className="benefit-icon">🚚</div>
-                            <h5>Frete Rápido</h5>
-                            <p>Entrega para todo Brasil</p>
-                        </div>
-                    </CCol>
-
-                    <CCol md={3}>
-                        <div className="benefit-card">
-                            <div className="benefit-icon">🔒</div>
-                            <h5>Compra Segura</h5>
-                            <p>Pagamentos protegidos</p>
-                        </div>
-                    </CCol>
-
-                    <CCol md={3}>
-                        <div className="benefit-card">
-                            <div className="benefit-icon">💳</div>
-                            <h5>Parcelamento</h5>
-                            <p>Até 12x sem juros</p>
-                        </div>
-                    </CCol>
-
-                    <CCol md={3}>
-                        <div className="benefit-card">
-                            <div className="benefit-icon">⭐</div>
-                            <h5>Qualidade</h5>
-                            <p>Produtos selecionados</p>
-                        </div>
-                    </CCol>
-                </CRow>
             </CContainer>
 
             <CContainer id="promotions" className="pb-5">
                 <div className="section-header">
-                    <span className="section-badge">
-                        Destaques
-                    </span>
-
-                    <h2 className="section-title">
-                        Produtos em Destaque
-                    </h2>
-
+                    <h1 className="hero-title text-dark">
+                        A maior coleção de pelúcias para todas as idades
+                    </h1>
                     <p className="section-subtitle">
                         Os favoritos dos nossos clientes
                     </p>

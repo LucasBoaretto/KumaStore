@@ -9,6 +9,14 @@ import {
 import "./DefaultCard.css"
 
 const DefaultCard = ({ img, title, price }) => {
+    const formatCurrency = (value) => {
+        const numericValue = Number(value);
+        if (isNaN(numericValue)) return "R$ 0,00";
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(numericValue);
+    }
     return (
         <CCard className="default-card h-100">
             <div className="card-image-wrapper">
@@ -29,7 +37,7 @@ const DefaultCard = ({ img, title, price }) => {
                 </CCardTitle>
 
                 <CCardText className="card-price">
-                    R$ {price}
+                    {formatCurrency(price)}
                 </CCardText>
             </CCardBody>
         </CCard>

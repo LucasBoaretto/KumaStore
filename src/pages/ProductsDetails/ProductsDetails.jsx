@@ -21,6 +21,7 @@ const ProductsDetails = () => {
     const [loading, setLoading] = useState(true);
     const [selectedImage, setSelectedImage] = useState("");
     const [cep, setCep] = useState("");
+    const [cepError, setCepError] = useState(null)
     const [shippingInfo, setShippingInfo] = useState(null);
     const [loadingAddress, setLoadingAddress] = useState(false);
     const [quantity, setQuantity] = useState(1);
@@ -49,16 +50,17 @@ const ProductsDetails = () => {
 
     const calculateShipping = async () => {
         if (!cep || cep.length < 8) {
-            alert("Informe um CEP válido");
+            setCepError("Informe um CEP válido");
             return;
         }
         setLoadingAddress(true);
+        setCepError(null);
         try {
             const response = await axios.get(
                 `https://viacep.com.br/ws/${cep}/json/`
             );
             if (response.data.erro) {
-                alert("CEP não encontrado");
+                setCepError("CEP não encontrado");
                 return;
             }
             const shippingValue =
@@ -75,7 +77,7 @@ const ProductsDetails = () => {
         }
         catch (error) {
             console.error(error);
-            alert("Erro ao consultar CEP");
+            setCepError(error);
         }
         finally {
             setLoadingAddress(false);
@@ -98,6 +100,15 @@ const ProductsDetails = () => {
         return Math.floor(Math.random() * 30) + 10;
     }, []);
 
+    const formatCurrency = (value) => {
+        const numericValue = Number(value);
+        if (isNaN(numericValue)) return "R$ 0,00";
+        return new Intl.NumberFormat('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        }).format(numericValue);
+    }
+
     if (loading) {
         return (
             <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
@@ -110,7 +121,7 @@ const ProductsDetails = () => {
     }
 
     return (
-        <CContainer className="py-5" style={{backgroundColor: '#f8f9fa'}}>
+        <CContainer className="py-5" style={{ backgroundColor: '#f8f9fa' }}>
             <CRow className="g-5">
                 <CCol lg={5}>
                     <div className="bg-white rounded shadow-sm p-3">
@@ -159,12 +170,12 @@ const ProductsDetails = () => {
                     </div>
 
                     <p className="old-price">
-                        R$ {originalPrice}
+                        {formatCurrency(originalPrice)}
                     </p>
 
                     <div className="d-flex align-items-center gap-3 mb-2">
                         <h2 className="current-price">
-                            R$ {product.price}
+                            {formatCurrency(product.price)}
                         </h2>
 
                         <span className="badge bg-success">
@@ -234,7 +245,7 @@ const ProductsDetails = () => {
                         <p>💳 Até 12x sem juros</p>
                     </div>
 
-                    <div className="mt-5">
+                    <div className="mt-4">
                         <h4>Calcular Frete</h4>
 
                         <div className="d-flex gap-2 align-items-end">
@@ -287,6 +298,10 @@ const ProductsDetails = () => {
                                     </strong>
                                 </p>
                             </div>
+                        )}
+
+                        {cepError && (
+                            <p className="text-danger">{cepError}</p>
                         )}
                     </div>
                 </CCol>

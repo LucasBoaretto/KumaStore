@@ -60,14 +60,12 @@
 }
 
 .purchase-benefits {
-    margin-top: 2rem;
-    background: #f8f9fa;
-    padding: 1rem;
-    border-radius: 12px;
+    margin-top: 10px;
+    display: flex;
 }
 
 .purchase-benefits p {
-    margin-bottom: .5rem;
+    padding-right: 12px;
 }
 
 .shipping-card {

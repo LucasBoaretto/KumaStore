@@ -59,23 +59,12 @@ export const homePageData = [
         product_name: "Hello Kitty Bombada",
         price: 143.56,
         picture: funnybear.funnyBear1,
+        description: "Uma versão hilária e musculosa da clássica personagem! Esta pelúcia maromba é perfeita para arrancar risadas, presentear os amigos do treino e decorar o ambiente com muito humor.",
         detailed_pictures: [
-            {
-                picture: funnybear.funnyBear1,
-                alt: "Hello Kitty Bombada"
-            },
-            {
-                picture: funnybear.funnyBear2,
-                alt: "Hello Kitty Bombada"
-            },
-            {
-                picture: funnybear.funnyBear3,
-                alt: "Hello Kitty Bombada"
-            },
-            {
-                picture: funnybear.funnyBear4,
-                alt: "Hello Kitty Bombada"
-            },
+            { picture: funnybear.funnyBear1, alt: "Hello Kitty Bombada" },
+            { picture: funnybear.funnyBear2, alt: "Hello Kitty Bombada" },
+            { picture: funnybear.funnyBear3, alt: "Hello Kitty Bombada" },
+            { picture: funnybear.funnyBear4, alt: "Hello Kitty Bombada" },
         ]
     },
     {
@@ -83,23 +72,12 @@ export const homePageData = [
         product_name: "Homem Aranha",
         price: 123.45,
         picture: spyderbear.spyderBear1,
+        description: "O seu super-herói favorito da vizinhança agora na versão mais fofinha possível! Este ursinho do Homem-Aranha é o companheiro ideal para abraçar enquanto assiste aos filmes da Marvel.",
         detailed_pictures: [
-            {
-                picture: spyderbear.spyderBear1,
-                alt: "Homem Aranha"
-            },
-            {
-                picture: spyderbear.spyderBear2,
-                alt: "Homem Aranha"
-            },
-            {
-                picture: spyderbear.spyderBear3,
-                alt: "Homem Aranha"
-            },
-            {
-                picture: spyderbear.spyderBear4,
-                alt: "Homem Aranha"
-            },
+            { picture: spyderbear.spyderBear1, alt: "Homem Aranha" },
+            { picture: spyderbear.spyderBear2, alt: "Homem Aranha" },
+            { picture: spyderbear.spyderBear3, alt: "Homem Aranha" },
+            { picture: spyderbear.spyderBear4, alt: "Homem Aranha" },
         ]
     },
     {
@@ -107,24 +85,12 @@ export const homePageData = [
         product_name: "Ursinho Capivara",
         price: 143.56,
         picture: capivara.capivara1,
-        description: "",
+        description: "O animalzinho mais simpático e amado do Brasil virou pelúcia! Super macia e com aquela carinha de tranquilidade, esta capivara vai trazer muita paz e fofura para o seu dia a dia.",
         detailed_pictures: [
-            {
-                picture: capivara.capivara1,
-                alt: "Ursinho Capivara"
-            },
-            {
-                picture: capivara.capivara2,
-                alt: "Ursinho Capivara"
-            },
-            {
-                picture: capivara.capivara3,
-                alt: "Ursinho Capivara"
-            },
-            {
-                picture: capivara.capivara4,
-                alt: "Ursinho Capivara"
-            },
+            { picture: capivara.capivara1, alt: "Ursinho Capivara" },
+            { picture: capivara.capivara2, alt: "Ursinho Capivara" },
+            { picture: capivara.capivara3, alt: "Ursinho Capivara" },
+            { picture: capivara.capivara4, alt: "Ursinho Capivara" },
         ]
     },
     {
@@ -132,23 +98,12 @@ export const homePageData = [
         product_name: "Ursinho salsicha",
         price: 123.45,
         picture: cachorrinho.cachorrinho1,
+        description: "Um adorável cachorrinho da raça Dachshund em formato de pelúcia. É impossível não se apaixonar por esse corpinho alongado, orelhas caídas e olhar pidão. O melhor amigo de pano que você poderia ter!",
         detailed_pictures: [
-            {
-                picture: cachorrinho.cachorrinho1,
-                alt: "Ursinho salsicha"
-            },
-            {
-                picture: cachorrinho.cachorrinho2,
-                alt: "Ursinho salsicha"
-            },
-            {
-                picture: cachorrinho.cachorrinho3,
-                alt: "Ursinho salsicha"
-            },
-            {
-                picture: cachorrinho.cachorrinho4,
-                alt: "Ursinho salsicha"
-            },
+            { picture: cachorrinho.cachorrinho1, alt: "Ursinho salsicha" },
+            { picture: cachorrinho.cachorrinho2, alt: "Ursinho salsicha" },
+            { picture: cachorrinho.cachorrinho3, alt: "Ursinho salsicha" },
+            { picture: cachorrinho.cachorrinho4, alt: "Ursinho salsicha" },
         ]
     },
     {
@@ -156,23 +111,12 @@ export const homePageData = [
         product_name: "Ursinho gatinho",
         price: 143.56,
         picture: gatinho.gatinho1,
+        description: "Para os amantes de felinos, um gatinho de pelúcia irresistível. Feito com material extremamente macio, é delicado, aconchegante e o companheiro perfeito para a hora da soneca.",
         detailed_pictures: [
-            {
-                picture: gatinho.gatinho1,
-                alt: "Ursinho gatinho"
-            },
-            {
-                picture: gatinho.gatinho2,
-                alt: "Ursinho gatinho"
-            },
-            {
-                picture: gatinho.gatinho3,
-                alt: "Ursinho gatinho"
-            },
-            {
-                picture: gatinho.gatinho4,
-                alt: "Ursinho gatinho"
-            },
+            { picture: gatinho.gatinho1, alt: "Ursinho gatinho" },
+            { picture: gatinho.gatinho2, alt: "Ursinho gatinho" },
+            { picture: gatinho.gatinho3, alt: "Ursinho gatinho" },
+            { picture: gatinho.gatinho4, alt: "Ursinho gatinho" },
         ]
     },
     {
@@ -180,23 +124,12 @@ export const homePageData = [
         product_name: "Ursinho Amoroso",
         price: 123.45,
         picture: ursinhoAmoroso.ursinhoAmoroso1,
+        description: "Direto da sua infância para a sua casa! O clássico Ursinho Amoroso que espalha carinho e muita nostalgia por onde passa. Uma excelente opção para demonstrar afeto e presentear quem você ama.",
         detailed_pictures: [
-            {
-                picture: ursinhoAmoroso.ursinhoAmoroso1,
-                alt: "Ursinho Amoroso"
-            },
-            {
-                picture: ursinhoAmoroso.ursinhoAmoroso2,
-                alt: "Ursinho Amoroso"
-            },
-            {
-                picture: ursinhoAmoroso.ursinhoAmoroso3,
-                alt: "Ursinho Amoroso"
-            },
-            {
-                picture: ursinhoAmoroso.ursinhoAmoroso4,
-                alt: "Ursinho Amoroso"
-            },
+            { picture: ursinhoAmoroso.ursinhoAmoroso1, alt: "Ursinho Amoroso" },
+            { picture: ursinhoAmoroso.ursinhoAmoroso2, alt: "Ursinho Amoroso" },
+            { picture: ursinhoAmoroso.ursinhoAmoroso3, alt: "Ursinho Amoroso" },
+            { picture: ursinhoAmoroso.ursinhoAmoroso4, alt: "Ursinho Amoroso" },
         ]
     },
     {
@@ -204,23 +137,12 @@ export const homePageData = [
         product_name: "Hello Kitty",
         price: 143.56,
         picture: hellokitty.hellokitty1,
+        description: "A tradicional e atemporal personagem que conquista corações no mundo todo. Uma pelúcia linda, delicada e fofinha, indispensável para colecionadores e fãs do universo Sanrio.",
         detailed_pictures: [
-            {
-                picture: hellokitty.hellokitty1,
-                alt: "Hello Kitty"
-            },
-            {
-                picture: hellokitty.hellokitty2,
-                alt: "Hello Kitty"
-            },
-            {
-                picture: hellokitty.hellokitty3,
-                alt: "Hello Kitty"
-            },
-            {
-                picture: hellokitty.hellokitty4,
-                alt: "Hello Kitty"
-            },
+            { picture: hellokitty.hellokitty1, alt: "Hello Kitty" },
+            { picture: hellokitty.hellokitty2, alt: "Hello Kitty" },
+            { picture: hellokitty.hellokitty3, alt: "Hello Kitty" },
+            { picture: hellokitty.hellokitty4, alt: "Hello Kitty" },
         ]
     },
     {
@@ -228,23 +150,12 @@ export const homePageData = [
         product_name: "Ursinho Stitch",
         price: 123.45,
         picture: stitch.stitch1,
+        description: "O alienígena mais fofo, bagunceiro e amado do Havaí pronto para invadir o seu quarto! Lembre-se: Ohana quer dizer família, e este Stitch de pelúcia com certeza fará parte da sua.",
         detailed_pictures: [
-            {
-                picture: stitch.stitch1,
-                alt: "Ursinho Stitch"
-            },
-            {
-                picture: stitch.stitch2,
-                alt: "Ursinho Stitch"
-            },
-            {
-                picture: stitch.stitch3,
-                alt: "Ursinho Stitch"
-            },
-            {
-                picture: stitch.stitch4,
-                alt: "Ursinho Stitch"
-            },
+            { picture: stitch.stitch1, alt: "Ursinho Stitch" },
+            { picture: stitch.stitch2, alt: "Ursinho Stitch" },
+            { picture: stitch.stitch3, alt: "Ursinho Stitch" },
+            { picture: stitch.stitch4, alt: "Ursinho Stitch" },
         ]
     }
 ]

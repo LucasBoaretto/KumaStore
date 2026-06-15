@@ -29,7 +29,6 @@ const ProductsDetails = () => {
     const fetchProduct = async () => {
         setLoading(true);
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000));
             const foundProduct = homePageData.find(
                 item => item.cod_product === Number(cod)
             );
@@ -39,6 +38,7 @@ const ProductsDetails = () => {
             } else {
                 alert("Produto não encontrado");
             }
+            await new Promise(resolve => setTimeout(resolve, 300));
         }
         catch (error) {
             console.error(error);

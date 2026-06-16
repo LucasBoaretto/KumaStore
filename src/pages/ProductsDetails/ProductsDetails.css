@@ -6,11 +6,6 @@
     transition: transform .4s ease;
 }
 
-.stars {
-    color: #ffc107;
-    font-size: 1.2rem;
-}
-
 .old-price {
     color: #999;
     text-decoration: line-through;
@@ -27,7 +22,6 @@
 }
 
 .stock-info {
-    color: #198754;
     font-weight: 600;
 }
 

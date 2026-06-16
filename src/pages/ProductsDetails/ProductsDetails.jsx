@@ -1,119 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router";
-import { homePageData } from "../../data/homePageData";
-import {
-    CCol,
-    CContainer,
-    CFormInput,
-    CFormLabel,
-    CImage,
-    CRow,
-    CSpinner
-} from "@coreui/react";
+import { useParams, useNavigate } from "react-router";
+import { CButton, CCol, CContainer, CFormInput, CFormLabel, CImage, CRow, CSpinner } from "@coreui/react";
 import { TiltButton } from "react-tilt-button";
 import MiniCardDetails from "./components/MiniCardDetails";
 import axios from "axios";
 import "./ProductsDetails.css";
+import Swal from "sweetalert2";
+import { useProductsDetails } from "./useProductsDetails";
+import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ProductsDetails = () => {
-    const { cod } = useParams();
-    const [product, setProduct] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [selectedImage, setSelectedImage] = useState("");
-    const [cep, setCep] = useState("");
-    const [cepError, setCepError] = useState(null)
-    const [shippingInfo, setShippingInfo] = useState(null);
-    const [loadingAddress, setLoadingAddress] = useState(false);
-    const [quantity, setQuantity] = useState(1);
-
-    const fetchProduct = async () => {
-        setLoading(true);
-        try {
-            const foundProduct = homePageData.find(
-                item => item.cod_product === Number(cod)
-            );
-            if (foundProduct) {
-                setProduct(foundProduct);
-                setSelectedImage(foundProduct.picture);
-            } else {
-                alert("Produto não encontrado");
-            }
-            await new Promise(resolve => setTimeout(resolve, 300));
-        }
-        catch (error) {
-            console.error(error);
-        }
-        finally {
-            setLoading(false);
-        }
-    };
-
-    const calculateShipping = async () => {
-        if (!cep || cep.length < 8) {
-            setCepError("Informe um CEP válido");
-            return;
-        }
-        setLoadingAddress(true);
-        setCepError(null);
-        try {
-            const response = await axios.get(
-                `https://viacep.com.br/ws/${cep}/json/`
-            );
-            if (response.data.erro) {
-                setCepError("CEP não encontrado");
-                return;
-            }
-            const shippingValue =
-                Math.floor(Math.random() * 25) + 10;
-
-            const shippingDays =
-                Math.floor(Math.random() * 7) + 2;
-            setShippingInfo({
-                city: response.data.localidade,
-                state: response.data.uf,
-                price: shippingValue,
-                days: shippingDays
-            });
-        }
-        catch (error) {
-            console.error(error);
-            setCepError(error);
-        }
-        finally {
-            setLoadingAddress(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchProduct();
-    }, [cod]);
-
-    const originalPrice = useMemo(() => {
-        return (Number(product?.price || 0) * 1.25).toFixed(2);
-    }, [product.price]);
-
-    const reviews = useMemo(() => {
-        return Math.floor(Math.random() * 300) + 50;
-    }, []);
-
-    const stock = useMemo(() => {
-        return Math.floor(Math.random() * 30) + 10;
-    }, []);
-
-    const formatCurrency = (value) => {
-        const numericValue = Number(value);
-        if (isNaN(numericValue)) return "R$ 0,00";
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(numericValue);
-    }
+    const { product, loading, selectedImage, setSelectedImage, cep, setCep,
+        cepError, shippingInfo, loadingAddress, calculateShipping,
+        addToCart, originalPrice, stock, formatCurrency, quantity, setQuantity } = useProductsDetails();
 
     if (loading) {
         return (
-            <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+            <div className="flex-grow-1 d-flex flex-column align-items-center justify-content-center py-5">
                 <CSpinner />
-                <span className="mt-2">
+                <span className="mt-2 text-muted">
                     Carregando dados do produto...
                 </span>
             </div>
@@ -129,14 +35,11 @@ const ProductsDetails = () => {
                             <CImage
                                 src={selectedImage}
                                 className="product-image w-100"
-                                style={{
-                                    height: "600px",
-                                    objectFit: "contain"
-                                }}
+                                style={{ height: "600px", objectFit: "contain" }}
                             />
                         </div>
 
-                        <div className="mt-3 d-flex flex-wrap justify-content-center">
+                        <div className="mt-3 d-flex flex-wrap justify-content-center gap-2">
                             {product.detailed_pictures?.map(
                                 (image, index) => (
                                     <MiniCardDetails
@@ -159,116 +62,87 @@ const ProductsDetails = () => {
                         {product.product_name}
                     </h1>
 
-                    <div className="d-flex align-items-center gap-2 mb-3">
-                        <span className="stars">
-                            ★★★★★
-                        </span>
-
-                        <span className="text-muted">
-                            ({reviews} avaliações)
-                        </span>
-                    </div>
-
-                    <p className="old-price">
-                        {formatCurrency(originalPrice)}
+                    <p className="text-decoration-line-through text-muted mb-1">
+                        R$ {originalPrice}
                     </p>
 
                     <div className="d-flex align-items-center gap-3 mb-2">
-                        <h2 className="current-price">
+                        <h2 className="current-price text-success fw-bold m-0">
                             {formatCurrency(product.price)}
                         </h2>
-
                         <span className="badge bg-success">
                             20% OFF
                         </span>
                     </div>
 
-                    <p className="installments">
-                        ou 12x de R$
-                        {(Number(product.price) / 12).toFixed(2)}
+                    <p className="text-muted small mb-4">
+                        ou 12x de {(Number(product.price) / 12).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })} sem juros
                     </p>
 
                     <div className="mb-4">
-                        <CFormLabel>
-                            Quantidade
-                        </CFormLabel>
-
-                        <div className="quantity-selector">
-                            <button
-                                type="button"
-                                className="quantity-btn"
-                                onClick={() =>
-                                    setQuantity(prev =>
-                                        Math.max(1, prev - 1)
-                                    )
-                                }
-                            >
-                                -
-                            </button>
-
-                            <span className="quantity-value">
-                                {quantity}
-                            </span>
-
-                            <button
-                                type="button"
-                                className="quantity-btn"
-                                onClick={() =>
-                                    setQuantity(prev => prev + 1)
-                                }
-                                disabled={quantity >= stock}
-                            >
-                                +
-                            </button>
+                        <CFormLabel className="fw-bold">Quantidade</CFormLabel>
+                        <div className="d-flex align-items-center gap-3">
+                            <div className="d-flex align-items-center border border-dark me-4 bg-light">
+                                <CButton
+                                    className="btn btn-light border-0 rounded-0 px-3 bg-transparent d-flex align-items-center justify-content-center"
+                                    onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
+                                    style={{ height: '36px' }}
+                                >
+                                    <FontAwesomeIcon icon={faMinus} style={{ fontSize: '12px' }} />
+                                </CButton>
+                                <div
+                                    className="px-3 border-start border-end border-dark bg-white d-flex justify-content-center align-items-center"
+                                    style={{ width: '40px', height: '36px' }}
+                                >
+                                    {quantity}
+                                </div>
+                                <CButton
+                                    className="btn btn-light border-0 rounded-0 px-3 bg-transparent d-flex align-items-center justify-content-center"
+                                    onClick={() => setQuantity(prev => prev + 1)}
+                                    disabled={quantity >= stock}
+                                    style={{ height: '36px' }}
+                                >
+                                    <FontAwesomeIcon icon={faPlus} style={{ fontSize: '12px' }} />
+                                </CButton>
+                            </div>
+                            <span className="text-muted small">{stock} disponíveis</span>
                         </div>
-                        <p>
-                            {stock} unidades disponíveis
-                        </p>
                     </div>
 
-                    <TiltButton
-                        elevation={4}
-                        tilt={0.1}
-                        variant="steel"
-                        width="320px"
-                        height={55}
-                        sideColor="#5F615F"
-                        surfaceColor="#D2D6D3"
-                        borderColor="#5F615F"
-                    >
-                        Adicionar ao carrinho
-                    </TiltButton>
-
-                    <div className="purchase-benefits">
-                        <p>🚚 Frete rápido para todo Brasil</p>
-                        <p>🔒 Compra segura</p>
-                        <p>💳 Até 12x sem juros</p>
+                    <div className="mb-4">
+                        <TiltButton
+                            elevation={4}
+                            tilt={0.1}
+                            variant="steel"
+                            width="auto"
+                            width='50%'
+                            height={55}
+                            sideColor="#5F615F"
+                            surfaceColor="#D2D6D3"
+                            borderColor="#5F615F"
+                            onClick={addToCart}
+                        >
+                            Adicionar ao Carrinho
+                        </TiltButton>
                     </div>
 
-                    <div className="mt-4">
-                        <h4>Calcular Frete</h4>
-
-                        <div className="d-flex gap-2 align-items-end">
-                            <div style={{ width: "250px" }}>
+                    <div>
+                        <h5 className="fw-bold mb-3">Calcular Frete</h5>
+                        <div className="d-flex gap-2 align-items-start">
+                            <div style={{ maxWidth: "200px" }}>
                                 <CFormInput
-                                    placeholder="Informe o CEP"
+                                    placeholder="00000-000"
                                     value={cep}
-                                    onChange={(e) =>
-                                        setCep(e.target.value)
-                                    }
+                                    onChange={(e) => setCep(e.target.value)}
+                                    maxLength={9}
                                 />
                             </div>
-
-                            <TiltButton
-                                elevation={3}
-                                tilt={0.8}
-                                height={40}
-                                width={140}
-                                variant="steel"
+                            <button
+                                className="btn btn-dark rounded px-4 py-2"
                                 onClick={calculateShipping}
                             >
                                 Calcular
-                            </TiltButton>
+                            </button>
                         </div>
 
                         {loadingAddress && (
@@ -276,43 +150,28 @@ const ProductsDetails = () => {
                                 <CSpinner size="sm" />
                             </div>
                         )}
-
                         {shippingInfo && (
-                            <div className="shipping-card mt-3">
-                                <p>
-                                    📍 {shippingInfo.city} - {shippingInfo.state}
-                                </p>
-
-                                <p>
-                                    🚚 Frete:
-                                    <strong>
-                                        {" "}R$ {shippingInfo.price}
-                                    </strong>
-                                </p>
-
-                                <p>
-                                    ⏱️ Prazo:
-                                    <strong>
-                                        {" "}
-                                        {shippingInfo.days} dias úteis
-                                    </strong>
-                                </p>
+                            <div className="mt-3 p-3 border border-dark rounded bg-white">
+                                <p className="mb-1 fw-bold">{shippingInfo.city} - {shippingInfo.state}</p>
+                                <p className="mb-1 text-muted">Transportadora Padrão</p>
+                                <div className="d-flex justify-content-between mt-2">
+                                    <span className="text-success fw-bold">R$ {shippingInfo.price},00</span>
+                                    <span>Chega em <strong>{shippingInfo.days} dias</strong></span>
+                                </div>
                             </div>
                         )}
-
                         {cepError && (
-                            <p className="text-danger">{cepError}</p>
+                            <p className="text-danger mt-2 small">{cepError}</p>
                         )}
                     </div>
                 </CCol>
             </CRow>
 
             <div className="bg-white rounded shadow-sm p-4 mt-5">
-                <h3 className="mb-3">
+                <h3 className="mb-3 fw-bold border-bottom pb-2">
                     Descrição do Produto
                 </h3>
-
-                <p className="mb-0">
+                <p className="text-muted" style={{ lineHeight: '1.8' }}>
                     {product.description}
                 </p>
             </div>

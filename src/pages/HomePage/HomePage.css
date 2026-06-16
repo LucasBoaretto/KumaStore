@@ -1,90 +1,74 @@
-.home-page {
+.home-container {
     background: #f8f9fa;
     min-height: 100vh;
 }
 
-.hero-action {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.hero-title {
+.titulo-destaque {
     font-size: 2.5rem;
     font-weight: 700;
     margin-bottom: .75rem;
 }
 
-.hero-subtitle {
-    color: #6c757d;
-    margin-bottom: 1.5rem;
-}
-
-.benefit-card {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    height: 100%;
-
-    transition: .3s;
-
-    box-shadow:
-        0 4px 12px rgba(0, 0, 0, .06);
-}
-
-.benefit-card:hover {
-    transform: translateY(-6px);
-
-    box-shadow:
-        0 12px 24px rgba(0, 0, 0, .12);
-}
-
-.benefit-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-}
-
-.benefit-card h5 {
-    font-weight: 700;
-}
-
-.benefit-card p {
-    color: #6c757d;
-    margin-bottom: 0;
-}
-
-.section-header {
+.cabecalho-produtos {
     text-align: center;
     margin-bottom: 3rem;
 }
 
-.section-badge {
-    background: #fff3cd;
-
-    color: #856404;
-
-    padding: 8px 16px;
-
-    border-radius: 999px;
-
-    font-weight: 600;
-
-    font-size: .85rem;
-}
-
-.section-title {
-    margin-top: 1rem;
-
-    font-size: 2.2rem;
-
-    font-weight: 700;
-}
-
-.section-subtitle {
+.subtitulo-produtos {
     color: #6c757d;
 }
 
-.product-link {
+.link-produto {
     text-decoration: none;
     color: inherit;
+}
+
+.box-categorias {
+    background: #fff;
+    border: 1px solid #dee2e6;
+}
+
+.btn-categoria {
+    background: transparent;
+    border: none;
+    color: #6c757d;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+}
+
+.btn-categoria:hover {
+    color: #212529;
+}
+
+.btn-categoria.ativo {
+    color: #212529;
+    border-bottom: 2px solid #212529;
+}
+
+.area-subcategorias {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}
+
+.btn-sub {
+    background: #fff;
+    border: 1px solid #ced4da;
+    color: #495057;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-sub:hover {
+    background-color: #212529;
+    border-color: #212529;
+    color: #fff;
 }

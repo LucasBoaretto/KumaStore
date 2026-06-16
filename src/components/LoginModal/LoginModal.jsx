@@ -57,7 +57,7 @@ const LoginModal = ({ visible, onClose, onSwitchToRegister, onLoginSuccess }) =>
                     </CRow>
                     <CRow className="text-center mb-3">
                         <CCol>
-                            <Link to='/forgot-password' className="forgot-password-link">
+                            <Link to='/' className="forgot-password-link">
                                 Esqueceu a senha?
                             </Link>
                         </CCol>

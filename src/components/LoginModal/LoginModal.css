@@ -1,11 +1,9 @@
-/* Centralização perfeita cobrindo toda a altura da tela */
 .login-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background-color: #f4f6f9;
-    /* Fundo levemente cinza para destacar o card branco */
     padding: 20px;
 }
 
@@ -13,10 +11,8 @@
     border-radius: 16px;
     width: 100%;
     max-width: 450px;
-    /* Responsivo: expande até 450px */
     border: none;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    /* Sombra mais ampla e transparente */
     background-color: #ffffff;
 }
 
@@ -37,7 +33,6 @@
     text-decoration: underline;
 }
 
-/* Ajuste da cor do texto do botão secundário para dar leitura */
 .create-account-text {
     color: #495057;
     font-weight: 500;

@@ -1,63 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import {
-    CCol,
-    CFormInput,
-    CImage,
-    CNavbar,
-    CRow,
-    CDropdown,
-    CDropdownToggle,
-    CDropdownMenu,
-    CDropdownItem,
-    CDropdownDivider
-} from '@coreui/react'
+import { CCol, CFormInput, CImage, CNavbar, CRow, CDropdown, CDropdownToggle, CDropdownMenu, CDropdownItem, CDropdownDivider } from '@coreui/react'
 import { Link } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faRightFromBracket } from '@fortawesome/free-solid-svg-icons'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
-
-import LoginPage from '../LoginPage/LoginPage'
-import RegisterPage from '../LoginPage/RegisterPage'
+import RegisterModal from '../../components/LoginModal/RegisterModal'
+import LoginModal from '../../components/LoginModal/LoginModal'
+import { useDefaultHeader } from './useDefaultHeader'
 
 const DefaultHeader = () => {
     const logo = '/img/homepage/urso-teddy.png'
 
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
-
-    // Novo estado para o usuário logado
-    const [currentUser, setCurrentUser] = useState(null);
-
-    // Lê o storage assim que o componente monta (para manter logado no F5)
-    useEffect(() => {
-        const storedUser = localStorage.getItem('currentUser');
-        if (storedUser) {
-            setCurrentUser(JSON.parse(storedUser));
-        }
-    }, []);
-
-    // Funções de transição de Modais
-    const openLogin = () => {
-        setIsRegisterModalOpen(false);
-        setIsLoginModalOpen(true);
-    };
-
-    const openRegister = () => {
-        setIsLoginModalOpen(false);
-        setIsRegisterModalOpen(true);
-    };
-
-    // Função que o LoginPage vai chamar quando der tudo certo
-    const handleLoginSuccess = (user) => {
-        setCurrentUser(user);
-        setIsLoginModalOpen(false); // Fecha o modal automaticamente
-    };
-
-    // Função de Logout
-    const handleLogout = () => {
-        localStorage.removeItem('currentUser'); // Limpa o storage
-        setCurrentUser(null); // Limpa o estado
-    };
+    const { isLoginModalOpen, setIsLoginModalOpen, isRegisterModalOpen, setIsRegisterModalOpen,
+        currentUser, cartCount, openLoginModal, openRegisterModal, handleLoginSuccess,
+        handleLogout
+    } = useDefaultHeader();
 
     return (
         <CNavbar
@@ -69,9 +26,29 @@ const DefaultHeader = () => {
                     <Link to='/'>
                         <CImage src={logo} alt='logo' width={32} height={32} />
                     </Link>
-                    <Link to='/categories' className='text-decoration-none text-dark'>Categorias</Link>
-                    <Link to='/news' className='text-decoration-none text-dark'>Novidades</Link>
-                    <Link to='/promotions' className='text-decoration-none text-dark'>Promoções</Link>
+                    {/* Como não vou implementar vai ficar desabilitado */}
+                    <Link
+                        to='/categories'
+                        className='text-decoration-none text-muted pe-none'
+                        onClick={(e) => e.preventDefault()}
+                        style={{ cursor: 'not-allowed' }}
+                    >Categorias</Link>
+                    <Link
+                        to='/news'
+                        className='text-decoration-none text-muted pe-none'
+                        onClick={(e) => e.preventDefault()}
+                        style={{ cursor: 'not-allowed' }}
+                    >
+                        Novidades
+                    </Link>
+                    <Link
+                        to='/promotions'
+                        className='text-decoration-none text-muted pe-none'
+                        onClick={(e) => e.preventDefault()}
+                        style={{ cursor: 'not-allowed' }}
+                    >
+                        Promoções
+                    </Link>
                 </CCol>
                 <CCol md={4}>
                     <CFormInput
@@ -82,16 +59,23 @@ const DefaultHeader = () => {
                 </CCol>
                 <CCol md={4} className='d-flex justify-content-end align-items-center'>
                     <div className='me-2 d-flex align-items-center gap-3'>
-                        <Link to='/cart'>
-                            <FontAwesomeIcon icon={faCartShopping} size='xl' style={{ cursor: 'pointer' }} color='#5a6e00' />
+                        {/* Carrinho */}
+                        <Link to='/cart' className="position-relative text-decoration-none" style={{ display: 'inline-block', padding: '5px' }} title='Carrinho de compras'>
+                            <FontAwesomeIcon icon={faCartShopping} size='xl' style={{ cursor: 'pointer' }} color='#722a00d4' />
+                            {cartCount > 0 && (
+                                <span
+                                    className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                                    style={{ fontSize: '0.65rem' }}
+                                >
+                                    {cartCount > 99 ? '99+' : cartCount}
+                                </span>
+                            )}
                         </Link>
-
-                        {/* RENDERIZAÇÃO CONDICIONAL: Logado vs Deslogado */}
+                        {/* Usuario */}
                         {currentUser ? (
-                            <CDropdown alignment="end">
+                            <CDropdown alignment="end" title={currentUser.name}>
                                 <CDropdownToggle
                                     color="transparent"
-                                    // A classe p-0 é o segredo aqui: ela remove o padding fantasma do botão
                                     className="p-0 border-0"
                                     caret={false}
                                     style={{ boxShadow: 'none' }}
@@ -99,9 +83,9 @@ const DefaultHeader = () => {
                                     <div
                                         className="rounded-circle d-flex align-items-center justify-content-center"
                                         style={{
-                                            width: '32px', // Reduzi levemente de 36px para 32px para harmonizar com o ícone do carrinho
+                                            width: '32px',
                                             height: '32px',
-                                            backgroundColor: '#5a6e00',
+                                            backgroundColor: '#c74900',
                                             color: 'white',
                                             fontWeight: 'bold',
                                             fontSize: '1rem'
@@ -111,8 +95,8 @@ const DefaultHeader = () => {
                                     </div>
                                 </CDropdownToggle>
                                 <CDropdownMenu>
-                                    <CDropdownItem as={Link} to="/profile">Meu Perfil</CDropdownItem>
-                                    <CDropdownItem as={Link} to="/orders">Meus Pedidos</CDropdownItem>
+                                    <CDropdownItem disabled readOnly className='text-decoration-none'>Meu Perfil</CDropdownItem>
+                                    <CDropdownItem disabled readOnly className='text-decoration-none'>Meus Pedidos</CDropdownItem>
                                     <CDropdownDivider />
                                     <CDropdownItem onClick={handleLogout} style={{ cursor: 'pointer' }} className="text-danger d-flex align-items-center gap-2">
                                         <FontAwesomeIcon icon={faRightFromBracket} />
@@ -121,36 +105,32 @@ const DefaultHeader = () => {
                                 </CDropdownMenu>
                             </CDropdown>
                         ) : (
-                            // Envolvemos o ícone de deslogado em uma div do mesmo tamanho exato da bolinha (32x32)
-                            // Isso garante que a área ocupada seja idêntica, impedindo o layout de "pular"
                             <div
                                 className="d-flex align-items-center justify-content-center"
-                                style={{ width: '32px', height: '32px' }}
+                                style={{ width: '32px', height: '32px' }} title='Login'
                             >
                                 <FontAwesomeIcon
                                     icon={faUser}
                                     size='xl'
                                     style={{ cursor: 'pointer' }}
-                                    color='#4b4b4bcc'
-                                    onClick={openLogin}
+                                    color='#722a00d4'
+                                    onClick={openLoginModal}
                                 />
                             </div>
                         )}
                     </div>
                 </CCol>
             </CRow>
-
-            <LoginPage
+            <LoginModal
                 visible={isLoginModalOpen}
                 onClose={() => setIsLoginModalOpen(false)}
-                onSwitchToRegister={openRegister}
-                onLoginSuccess={handleLoginSuccess} // Passando a nova função!
+                onSwitchToRegister={openRegisterModal}
+                onLoginSuccess={handleLoginSuccess}
             />
-
-            <RegisterPage
+            <RegisterModal
                 visible={isRegisterModalOpen}
                 onClose={() => setIsRegisterModalOpen(false)}
-                onSwitchToLogin={openLogin}
+                onSwitchToLogin={openLoginModal}
             />
         </CNavbar>
     )

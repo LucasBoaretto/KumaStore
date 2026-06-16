@@ -1,9 +1,4 @@
-import {
-    CCarousel,
-    CCarouselCaption,
-    CCarouselItem,
-    CImage
-} from "@coreui/react"
+import { CCarousel, CCarouselCaption, CCarouselItem, CImage } from "@coreui/react"
 
 const DefaultBanner = ({ items }) => {
     return (
@@ -20,12 +15,8 @@ const DefaultBanner = ({ items }) => {
                         className="d-block w-100"
                         src={item.picture}
                         alt={`slide-${index}`}
-                        style={{
-                            height: "350px",
-                            objectFit: "cover"
-                        }}
+                        style={{ height: "350px", objectFit: "cover" }}
                     />
-
                     {item.title && (
                         <CCarouselCaption className="d-none d-md-block">
                             <h3>{item.title}</h3>

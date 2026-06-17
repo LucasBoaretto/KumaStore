@@ -20,16 +20,6 @@ const HomePage = () => {
     ]
 
     useEffect(() => {
-        const hasSeenAlert = sessionStorage.getItem("hasSeenDevAlert")
-        if (!hasSeenAlert) {
-            Swal.fire(
-                "Atenção",
-                "Esse site ainda está em desenvolvimento e as imagens são meramente ilustrativas.",
-                "info"
-            )
-            sessionStorage.setItem("hasSeenDevAlert", "true")
-        }
-
         const loadProducts = async () => {
             try {
                 const response = await axios.get("/produtos.json")
